@@ -6,50 +6,92 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: 'Arial', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #7297d6;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
 /* ================= CONTAINER ================= */
 .container {
     width: 100%;
     max-width: 1200px;
-    padding: 20px;
 }
 
-/* ================= AUTH CONTAINER (Login/Register) ================= */
+/* ================= LOGO ================= */
+.logo {
+    display: block;
+    margin: 0 auto 20px;
+    max-width: 120px;
+    height: auto;
+}
+
+/* ================= AUTH CONTAINER (Login/Register/Role Selection) ================= */
 .auth-container {
     background: white;
     padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     max-width: 450px;
     margin: 0 auto;
-    animation: fadeIn 0.5s ease-in;
+    text-align: center;
 }
 
 .auth-container h1 {
-    color: #667eea;
+    color: #333;
     text-align: center;
     margin-bottom: 10px;
-    font-size: 2.5em;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 28px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
 }
 
 .auth-container h2 {
     color: #555;
     text-align: center;
     margin-bottom: 30px;
-    font-size: 1.5em;
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
+
+/* ================= DASHBOARD ================= */
+.dashboard {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    min-height: 500px;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.dashboard-header h1 {
+    color: #333;
+    font-size: 24px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
+
+.dashboard-header p {
+    color: #666;
+    margin-top: 5px;
 }
 
 /* ================= FORM STYLES ================= */
 .form-group {
     margin-bottom: 20px;
+    text-align: left;
 }
 
 .form-group label {
@@ -57,49 +99,58 @@ body {
     margin-bottom: 8px;
     color: #333;
     font-weight: 600;
+    background: #7297d6;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
     width: 100%;
-    padding: 12px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: all 0.3s ease;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: #7297d6;
+}
+
+.form-group small {
+    display: block;
+    margin-top: 5px;
+    color: #666;
+    font-size: 12px;
 }
 
 /* ================= BUTTONS ================= */
 .btn {
-    width: 100%;
-    padding: 14px;
+    padding: 12px 24px;
     border: none;
-    border-radius: 8px;
-    font-size: 16px;
+    border-radius: 5px;
+    font-size: 14px;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    text-decoration: none;
+    display: inline-block;
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #4a6fa5;
     color: white;
+    width: 100%;
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    background: #3c5c8a;
 }
 
 .btn-secondary {
@@ -125,7 +176,7 @@ body {
     background: #f8d7da;
     color: #721c24;
     padding: 12px;
-    border-radius: 8px;
+    border-radius: 4px;
     margin: 15px 0;
     border: 1px solid #f5c6cb;
 }
@@ -134,7 +185,7 @@ body {
     background: #d4edda;
     color: #155724;
     padding: 12px;
-    border-radius: 8px;
+    border-radius: 4px;
     margin: 15px 0;
     border: 1px solid #c3e6cb;
 }
@@ -147,40 +198,13 @@ body {
 }
 
 .auth-link a {
-    color: #667eea;
+    color: #4a6fa5;
     text-decoration: none;
     font-weight: bold;
 }
 
 .auth-link a:hover {
     text-decoration: underline;
-}
-
-/* ================= DASHBOARD ================= */
-.dashboard {
-    background: white;
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-}
-
-.dashboard-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #e0e0e0;
-}
-
-.dashboard-header h1 {
-    color: #667eea;
-    font-size: 2em;
-}
-
-.logo {
-    max-width: 80px;
-    height: auto;
 }
 
 /* ================= ACTIVITY CARDS ================= */
@@ -193,22 +217,23 @@ body {
 
 .activity-card {
     background: white;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
+    border: 2px solid #7297d6;
+    border-radius: 8px;
     padding: 20px;
     transition: all 0.3s ease;
     cursor: pointer;
 }
 
 .activity-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    border-color: #667eea;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(114, 151, 214, 0.3);
+    border-color: #4a6fa5;
 }
 
 .activity-card h3 {
     color: #333;
     margin-bottom: 10px;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .activity-card p {
@@ -231,19 +256,80 @@ body {
     color: #d63031;
 }
 
-.type-assignment {
+.type-written-work {
     background: #a29bfe;
     color: #6c5ce7;
 }
 
-.type-activity {
+.type-assignment {
     background: #74b9ff;
     color: #0984e3;
 }
 
-.type-performance {
+.type-activity {
+    background: #55efc4;
+    color: #00b894;
+}
+
+.type-performance-task {
     background: #fd79a8;
     color: #e84393;
+}
+
+/* ================= ACTIVITY DETAIL ================= */
+.activity-detail {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.detail-section {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+    border-left: 4px solid #7297d6;
+}
+
+.detail-section h3 {
+    color: #4a6fa5;
+    margin-bottom: 10px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.detail-section p {
+    margin: 8px 0;
+    line-height: 1.6;
+    color: #333;
+}
+
+.description-box {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    white-space: pre-wrap;
+    color: #333;
+}
+
+/* ================= SECTION SELECTION ================= */
+.section-selector {
+    margin: 20px 0;
+}
+
+.section-selector h2 {
+    color: #333;
+    margin-bottom: 15px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.section-selector select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #7297d6;
+    font-size: 16px;
+    margin-right: 10px;
+    width: 100%;
+    max-width: 400px;
 }
 
 /* ================= SPARKLE ANIMATION ================= */
@@ -255,17 +341,6 @@ body {
     100% {
         transform: translate(var(--tx), var(--ty)) scale(0);
         opacity: 0;
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
     }
 }
 
@@ -282,5 +357,60 @@ body {
     .dashboard-header {
         flex-direction: column;
         text-align: center;
+        gap: 15px;
     }
+    
+    .logo {
+        max-width: 100px;
+    }
+}
+
+/* ================= UTILITY CLASSES ================= */
+.text-center {
+    text-align: center;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+/* ================= FILE INPUT STYLING ================= */
+input[type="file"] {
+    padding: 8px;
+    border: 2px dashed #7297d6;
+    border-radius: 5px;
+    background: #f8f9fa;
+}
+
+input[type="file"]:hover {
+    border-color: #4a6fa5;
+    background: #e9ecef;
+}
+
+/* ================= TABLES (if needed) ================= */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+table th,
+table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+table th {
+    background: #7297d6;
+    color: white;
+    font-weight: bold;
+}
+
+table tr:hover {
+    background: #f8f9fa;
 }
