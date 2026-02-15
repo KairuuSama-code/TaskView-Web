@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskView - Activity Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        .activity-detail {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .detail-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        .detail-section h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .detail-section p {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+        .description-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard activity-detail">
+            <div class="dashboard-header">
+                <h1>Activity Details</h1>
+                <a href="javascript:history.back()" class="btn btn-secondary" style="width: auto; padding: 10px 20px;">Back</a>
+            </div>
+
+            <div class="detail-section">
+                <h3>{{ activity.subject }}</h3>
+                <div class="activity-type type-{{ activity.type.lower().replace(' ', '-') }}">
+                    {{ activity.type }}
+                </div>
+            </div>
+
+            <div class="detail-section">
+                <p><strong>Section:</strong> {{ activity.section }}</p>
+                <p><strong>Teacher:</strong> {{ activity.teacher_name }}</p>
+                {% if activity.deadline %}
+                <p><strong>Deadline:</strong> {{ activity.deadline }}</p>
+                {% endif %}
+                <p><strong>Posted:</strong> {{ activity.created_at }}</p>
+            </div>
+
+            <div class="detail-section">
+                <h3>Description</h3>
+                <div class="description-box">
+                    {{ activity.description }}
+                </div>
+            </div>
+
+            {% if activity.attachment %}
+            <div class="detail-section">
+                <h3>Attachment</h3>
+                <a href="{{ url_for('download_file', filename=activity.attachment) }}" class="btn btn-primary" style="width: auto; padding: 12px 24px; display: inline-block; text-decoration: none;">
+                    📎 Download Attachment
+                </a>
+            </div>
+            {% endif %}
+
+            {% if can_delete %}
+            <div class="detail-section">
+                <form method="POST" action="/teacher/delete-activity/{{ activity.id }}" onsubmit="return confirm('Are you sure you want to delete this activity?');">
+                    <button type="submit" class="btn btn-danger">Delete Activity</button>
+                </form>
+                <small style="color: #666; display: block; margin-top: 10px;">Only you can delete this activity since you posted it.</small>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

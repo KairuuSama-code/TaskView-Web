@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskView - Select Section</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard" style="max-width: 600px; margin: 0 auto;">
+            <div class="dashboard-header">
+                <h1>Select Section</h1>
+                <a href="{{ url_for('logout') }}" class="btn btn-secondary" style="width: auto; padding: 10px 20px;">Logout</a>
+            </div>
+            
+            <p style="margin: 20px 0; color: #333;">Choose a section to view and manage activities:</p>
+            
+            <div style="display: grid; gap: 15px; margin-top: 30px;">
+                {% for section in sections %}
+                <a href="{{ url_for('teacher_activities', section=section) }}" 
+                   class="btn btn-primary" 
+                   style="text-decoration: none; text-align: center; padding: 15px;">
+                    {{ section }}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

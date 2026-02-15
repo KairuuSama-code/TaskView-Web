@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskView - Activities</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard">
+            <div class="dashboard-header">
+                <div>
+                    <h1>{{ section }}</h1>
+                    <p>Teacher: {{ teacher_name }}</p>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <a href="{{ url_for('teacher_section_select') }}" class="btn btn-secondary" style="width: auto; padding: 10px 20px;">Back</a>
+                    <a href="{{ url_for('logout') }}" class="btn btn-secondary" style="width: auto; padding: 10px 20px;">Logout</a>
+                </div>
+            </div>
+
+            <div style="margin: 20px 0;">
+                <a href="{{ url_for('teacher_add_activity') }}" class="btn btn-primary" style="width: auto; padding: 12px 24px; display: inline-block; text-decoration: none;">+ Add Activity</a>
+            </div>
+
+            {% if activities %}
+            <div class="activities-grid">
+                {% for activity in activities %}
+                <div class="activity-card" onclick="window.location.href='/teacher/activity/{{ activity.id }}'">
+                    <h3>{{ activity.subject }}</h3>
+                    <div class="activity-type type-{{ activity.type.lower().replace(' ', '-') }}">
+                        {{ activity.type }}
+                    </div>
+                    <p><strong>Teacher:</strong> {{ activity.teacher_name }}</p>
+                    {% if activity.deadline %}
+                    <p><strong>Deadline:</strong> {{ activity.deadline }}</p>
+                    {% endif %}
+                    <p><strong>Posted:</strong> {{ activity.created_at }}</p>
+                    {% if activity.attachment %}
+                    <p>📎 Has attachment</p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div style="text-align: center; padding: 40px; color: #666;">
+                <p style="font-size: 18px;">No activities posted yet for this section.</p>
+                <p>Click "Add Activity" to post your first activity!</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

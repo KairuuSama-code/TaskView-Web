@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskView - Teacher Sign Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="auth-container">
+            <img src="{{ url_for('static', filename='images/tfucslogo.png') }}" alt="TFUCS Logo" class="logo" style="display: block; margin: 0 auto 20px;">
+            <h1>TaskView</h1>
+            <h2>Teacher Sign Up</h2>
+
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="name">Teacher Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="teacher_pin">Teacher PIN:</label>
+                    <input type="password" id="teacher_pin" name="teacher_pin" placeholder="Enter teacher PIN (1234)" required>
+                    <small style="color: #666;">Ask your administrator for the teacher PIN</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Create a password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </form>
+
+            <div id="registerError" class="error-message" style="display: none;"></div>
+            <div id="registerSuccess" class="success-message" style="display: none;"></div>
+
+            <p class="auth-link">Already have an account? <a href="{{ url_for('teacher_login') }}">Login here</a></p>
+            <p class="auth-link"><a href="{{ url_for('index') }}">Back to Role Selection</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Sparkle effect
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('btn')) {
+                const colors = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD'];
+                for (let i = 0; i < 10; i++) {
+                    const sparkle = document.createElement('div');
+                    const angle = (Math.PI * 2 * i) / 10;
+                    const dist = 25 + Math.random() * 35;
+                    sparkle.style.cssText = `
+                        position: fixed; left: ${e.clientX}px; top: ${e.clientY}px;
+                        width: ${4 + Math.random() * 5}px; height: ${4 + Math.random() * 5}px;
+                        border-radius: 50%; pointer-events: none; z-index: 9999;
+                        background: ${colors[Math.floor(Math.random() * colors.length)]};
+                        --tx: ${Math.cos(angle) * dist}px; --ty: ${Math.sin(angle) * dist}px;
+                        animation: sparkleAnim 0.8s ease-out forwards;
+                    `;
+                    document.body.appendChild(sparkle);
+                    setTimeout(() => sparkle.remove(), 900);
+                }
+            }
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const teacher_pin = document.getElementById('teacher_pin').value;
+            const password = document.getElementById('password').value;
+
+            const errorDiv = document.getElementById('registerError');
+            const successDiv = document.getElementById('registerSuccess');
+
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+
+            try {
+                const response = await fetch('/teacher/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, teacher_pin, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    successDiv.textContent = 'Account created successfully! Redirecting to login...';
+                    successDiv.style.display = 'block';
+                    setTimeout(() => {
+                        window.location.href = '/teacher/login';
+                    }, 2000);
+                } else {
+                    errorDiv.textContent = data.error;
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                errorDiv.textContent = 'An error occurred. Please try again.';
+                errorDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

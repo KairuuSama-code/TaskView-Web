@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskView - Select Section</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="auth-container">
+            <img src="{{ url_for('static', filename='images/tfucslogo.png') }}" alt="TFUCS Logo" class="logo" style="display: block; margin: 0 auto 20px;">
+            <h1>TaskView</h1>
+            <h2>Student - Select Section</h2>
+
+            <form id="sectionForm">
+                <div class="form-group">
+                    <label for="section">Your Section:</label>
+                    <select id="section" name="section" required>
+                        <option value="">Select your section</option>
+                        {% for section in sections %}
+                        <option value="{{ section }}">{{ section }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="pin">Section PIN:</label>
+                    <input type="password" id="pin" name="pin" placeholder="Enter section PIN" required>
+                    <small style="color: #666;">Ask your teacher for the section PIN</small>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Enter</button>
+            </form>
+
+            <div id="error" class="error-message" style="display: none;"></div>
+
+            <p class="auth-link"><a href="{{ url_for('index') }}">Back to Role Selection</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('sectionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const section = document.getElementById('section').value;
+            const pin = document.getElementById('pin').value;
+            const errorDiv = document.getElementById('error');
+
+            errorDiv.style.display = 'none';
+
+            try {
+                const response = await fetch('/student/verify-pin', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ section, pin })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    window.location.href = '/student/activities';
+                } else {
+                    errorDiv.textContent = data.error;
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                errorDiv.textContent = 'An error occurred. Please try again.';
+                errorDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

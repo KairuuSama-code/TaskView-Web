@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskView - Activities</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard">
+            <div class="dashboard-header">
+                <div>
+                    <h1>Activities</h1>
+                    <p>Section: {{ section }}</p>
+                </div>
+                <a href="{{ url_for('logout') }}" class="btn btn-secondary" style="width: auto; padding: 10px 20px;">Exit</a>
+            </div>
+
+            {% if activities %}
+            <div class="activities-grid">
+                {% for activity in activities %}
+                <div class="activity-card" onclick="window.location.href='/student/activity/{{ activity.id }}'">
+                    <h3>{{ activity.subject }}</h3>
+                    <div class="activity-type type-{{ activity.type.lower().replace(' ', '-') }}">
+                        {{ activity.type }}
+                    </div>
+                    <p><strong>Teacher:</strong> {{ activity.teacher_name }}</p>
+                    {% if activity.deadline %}
+                    <p><strong>Deadline:</strong> {{ activity.deadline }}</p>
+                    {% endif %}
+                    <p><strong>Posted:</strong> {{ activity.created_at }}</p>
+                    {% if activity.attachment %}
+                    <p>📎 Has attachment</p>
+                    {% endif %}
+                    <p style="color: #666; margin-top: 10px; font-size: 14px;">
+                        {{ activity.description[:100] }}{% if activity.description|length > 100 %}...{% endif %}
+                    </p>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div style="text-align: center; padding: 40px; color: #666;">
+                <p style="font-size: 18px;">No activities posted yet.</p>
+                <p>Your teachers will post activities here.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
