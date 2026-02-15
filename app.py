@@ -27,11 +27,11 @@ SECTION_PINS = {
     "Grade 11 - ICT - HAGGAI": "2222",
     "Grade 12 - ICT - JUDE": "3333",
     "Grade 12 - ICT - TITUS": "4444",
-    "Grade 11 - STEM": "5555",
-    "Grade 12 - STEM": "6666",
-    "Grade 11 - HUMSS": "7777",
-    "Grade 12 - HUMSS": "8888",
-    "Grade 11 - HE": "9999",
+    "Grade 11 - STEM - JOEL": "5555",
+    "Grade 12 - STEM - THESSALONIANS": "6666",
+    "Grade 11 - HUMSS - JUDGES": "7777",
+    "Grade 12 - HUMSS -LEVITICUS": "8888",
+    "Grade 11 - HE - MICAH": "9999",
     "Grade 12 - HE - EZRA": "0000"
 }
 
